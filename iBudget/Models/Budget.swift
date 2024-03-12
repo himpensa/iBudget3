@@ -41,6 +41,53 @@ import SwiftData
       self.budget_category = budget_category
   }
     
+    // Fonction pour générer les enveloppes
+    func generateEnveloppes() -> [Enveloppe] {
+        var enveloppes = [Enveloppe]()
+        var startDate = budget_start_date
+        var endDate = budget_start_date
+        var calendarComponent: Calendar.Component = .month
+
+        print("start : \(startDate)")
+        print("end : \(budget_end_date)")
+        while startDate <= budget_end_date {
+            // Calcul de la prochaine échéance en fonction de la récurrence
+            switch budget_interval {
+            case .day:
+                startDate = endDate
+                calendarComponent = .day
+                endDate = Calendar.current.date(byAdding: calendarComponent, value: 1, to: startDate)!
+            case .week:
+                startDate = Calendar.current.dateInterval(of: .weekOfYear, for: startDate)!.start
+                startDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
+            case .month:
+                startDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: startDate))!
+                startDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .month, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
+            case .year:
+                startDate = Calendar.current.date(from: Calendar.current.dateComponents([.year], from: startDate))!
+                startDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .year, value: 1, to: startDate)!
+                endDate = Calendar.current.date(byAdding: .day, value: -1, to: endDate)!
+
+            }
+
+          print("startDate : \(startDate)")
+          print("endDate : \(endDate)")
+
+        //    let enveloppe = Enveloppe(enveloppe_name: budget_name, enveloppe_category: budget_category.category_name, enveloppe_timescale: .month, enveloppe_start_date: startDate, enveloppe_end_date: endDate)
+         //   enveloppes.append(enveloppe)
+
+            startDate = Calendar.current.date(byAdding: .day, value: 1, to: endDate)!
+        }
+
+        return enveloppes
+    }
+    
+    
     required init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         budget_id = try values.decode(UUID.self, forKey: .budget_id)

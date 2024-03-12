@@ -1,7 +1,14 @@
+//
+//  ListTransactionToCleanup.swift
+//  iBudget
+//
+//  Created by Antoine Himpens on 12/03/2024.
+//
+
 import SwiftUI
 import SwiftData
 
-struct ListTransactionsView: View {
+struct ListTransactionToCleanup: View {
     @Environment(\.modelContext) var modelContext
     @Query(sort: \Transaction.transaction_date, order: .reverse) var transactions: [Transaction]
     @Query var accounts: [Account]
@@ -88,6 +95,6 @@ struct ListTransactionsView: View {
        
     container.mainContext.insert(sampleTransaction)
 
-    return ListTransactionsView()
+    return ListTransactionToCleanup()
         .modelContainer(container)
 }

@@ -108,6 +108,8 @@ struct NewBudgetView: View {
         }
     
     func addBudget() {
+        var enveloppes: [Enveloppe]
+        
         guard let budget_category = budget_category else {
             print("Selected category is nil")
             return
@@ -120,6 +122,16 @@ struct NewBudgetView: View {
         modelContext.insert(budget)
         
         budget.budget_category = budget_category
+        
+        enveloppes = budget.generateEnveloppes()
+        
+        // Iterating over the transactions and inserting each one into the managed object context
+         for enveloppe in enveloppes {
+             modelContext.insert(enveloppe)
+             print(enveloppe.description())
+
+         }
+    //    budget.=planned_transactions
 
     }
     

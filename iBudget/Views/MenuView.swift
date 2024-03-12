@@ -115,9 +115,9 @@ struct MenuView: View {
                     
                     NavigationLink(destination: NewTransactionView()) {
                         VStack {
-                            Image(systemName: "dollar")
+                            Image(systemName: "dollarsign.circle")
                                 .font(.largeTitle)
-                            Text("Settings")
+                            Text("Transaction")
                                 .font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
@@ -130,7 +130,7 @@ struct MenuView: View {
                         VStack {
                             Image(systemName: "calendar")
                                 .font(.largeTitle)
-                            Text("Settings")
+                            Text("Planned")
                                 .font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
@@ -145,10 +145,6 @@ struct MenuView: View {
             }
         }
     }
-}
-
-#Preview {
-    MenuView()
 }
 
 

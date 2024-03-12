@@ -98,9 +98,6 @@ struct NewTransactionView: View {
             })
         }
     
-    
-    
-    
     private var currencyPicker: some View {
         Picker(selection: $selectedCurrency, label: Text("Currency")) {
             if currencies.isEmpty {

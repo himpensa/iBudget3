@@ -30,7 +30,7 @@ struct ContentView: View {
                         GroupBox(label: Label("Planned Expense", systemImage: "calendar")) {
                             PlannedTileView()
                         }
-                        .groupBoxStyle(PersoGroupBoxStyle(destination: ListTransactionsView()))
+                        .groupBoxStyle(PersoGroupBoxStyle(destination: ListPlannedView()))
                         
                         GroupBox(label: Label("Last Transactions", systemImage: "dollarsign")) {
                           TransactionsTileView()

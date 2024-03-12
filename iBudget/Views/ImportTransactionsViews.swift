@@ -14,6 +14,8 @@ struct ImportTransactionsViews: View {
     @State private var selectedCurrency: Currency?
     @State private var selectedAccount: Account?
     @State private var defaultCategory: Category?
+    @State private var showPopup = false
+
    
     
     var body: some View {
@@ -44,6 +46,20 @@ struct ImportTransactionsViews: View {
                 Button("Importer un fichier OFX") {
                     isOFXFilePickerPresented = true
                 }
+            }
+            VStack {
+                Button(action: {
+                    self.showPopup.toggle()
+                }) {
+                    Text("Show Popup")
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
+            .sheet(isPresented: $showPopup) {
+                PopupContentView()
             }
         }
         .fileImporter(isPresented: $isQIFFilePickerPresented, allowedContentTypes: [UTType(filenameExtension: "qif")!]) { result in
@@ -151,6 +167,28 @@ struct ImportTransactionsViews: View {
         }
     }
                 
+}
+
+
+struct PopupContentView: View {
+    @Environment(\.presentationMode) var presentationMode
+
+    var body: some View {
+        VStack {
+            Text("This is a popup!")
+                .font(.largeTitle)
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Dismiss")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+            }
+        }
+        .padding()
+    }
 }
 
 #Preview {

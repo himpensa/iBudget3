@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0A0047A02B49618700C54DC9 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A00479F2B49618700C54DC9 /* MenuView.swift */; };
 		0A0047A22B49919E00C54DC9 /* ImportJSONView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0047A12B49919E00C54DC9 /* ImportJSONView.swift */; };
+		0A0B0A032BA0F69C00948446 /* ListTransactionToCleanup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0B0A022BA0F69C00948446 /* ListTransactionToCleanup.swift */; };
 		0A157A582B769E9B0095B0EB /* NewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A157A572B769E9B0095B0EB /* NewCategoryView.swift */; };
 		0A157A5B2B76AC7E0095B0EB /* NewCurrencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A157A5A2B76AC7E0095B0EB /* NewCurrencyView.swift */; };
 		0A157A5E2B76B4870095B0EB /* NewAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A157A5D2B76B4870095B0EB /* NewAccountView.swift */; };
@@ -53,7 +54,6 @@
 		0ABD97762B9334A300FA34D2 /* ListPlannedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD97722B9334A300FA34D2 /* ListPlannedView.swift */; };
 		0ABD97772B9334A300FA34D2 /* NewPlannedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD97732B9334A300FA34D2 /* NewPlannedView.swift */; };
 		0ABD97782B9334A300FA34D2 /* EditPlannedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD97742B9334A300FA34D2 /* EditPlannedView.swift */; };
-		0ABD97792B9334A300FA34D2 /* TransactionPlannedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABD97752B9334A300FA34D2 /* TransactionPlannedTest.swift */; };
 		0ABF3CD82B583AE900DF4376 /* EditCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF3CD72B583AE900DF4376 /* EditCategoryView.swift */; };
 		0ABF3CDB2B5B12BE00DF4376 /* SWXMLHash in Frameworks */ = {isa = PBXBuildFile; productRef = 0ABF3CDA2B5B12BE00DF4376 /* SWXMLHash */; };
 		0ABF3CDF2B5B1C5200DF4376 /* QIFDataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABF3CDE2B5B1C5200DF4376 /* QIFDataContainer.swift */; };
@@ -97,6 +97,7 @@
 /* Begin PBXFileReference section */
 		0A00479F2B49618700C54DC9 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		0A0047A12B49919E00C54DC9 /* ImportJSONView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportJSONView.swift; sourceTree = "<group>"; };
+		0A0B0A022BA0F69C00948446 /* ListTransactionToCleanup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTransactionToCleanup.swift; sourceTree = "<group>"; };
 		0A157A572B769E9B0095B0EB /* NewCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCategoryView.swift; sourceTree = "<group>"; };
 		0A157A5A2B76AC7E0095B0EB /* NewCurrencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCurrencyView.swift; sourceTree = "<group>"; };
 		0A157A5D2B76B4870095B0EB /* NewAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAccountView.swift; sourceTree = "<group>"; };
@@ -144,7 +145,6 @@
 		0ABD97722B9334A300FA34D2 /* ListPlannedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListPlannedView.swift; sourceTree = "<group>"; };
 		0ABD97732B9334A300FA34D2 /* NewPlannedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPlannedView.swift; sourceTree = "<group>"; };
 		0ABD97742B9334A300FA34D2 /* EditPlannedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPlannedView.swift; sourceTree = "<group>"; };
-		0ABD97752B9334A300FA34D2 /* TransactionPlannedTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionPlannedTest.swift; sourceTree = "<group>"; };
 		0ABF3CD72B583AE900DF4376 /* EditCategoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EditCategoryView.swift; path = ../EditCategoryView.swift; sourceTree = "<group>"; };
 		0ABF3CDE2B5B1C5200DF4376 /* QIFDataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QIFDataContainer.swift; sourceTree = "<group>"; };
 		0ABF3CE92B618C2300DF4376 /* SimpleBudgetLineChartItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleBudgetLineChartItemView.swift; sourceTree = "<group>"; };
@@ -362,7 +362,6 @@
 				0ABD97722B9334A300FA34D2 /* ListPlannedView.swift */,
 				0ABD97732B9334A300FA34D2 /* NewPlannedView.swift */,
 				0ABD97742B9334A300FA34D2 /* EditPlannedView.swift */,
-				0ABD97752B9334A300FA34D2 /* TransactionPlannedTest.swift */,
 			);
 			path = PlannedViews;
 			sourceTree = "<group>";
@@ -411,6 +410,7 @@
 				0AE9DAC42B74E1B700ECB44F /* SimpleListTransactions.swift */,
 				0AE9DACA2B753B4300ECB44F /* SimpleListTransactionsFromList.swift */,
 				0ABD976D2B93191B00FA34D2 /* NewTransactionView.swift */,
+				0A0B0A022BA0F69C00948446 /* ListTransactionToCleanup.swift */,
 			);
 			path = TransactionViews;
 			sourceTree = "<group>";
@@ -577,6 +577,7 @@
 				0A8BE7EA2B1CEC6E004A2B00 /* EditCurrencyView.swift in Sources */,
 				0ABF3CFE2B6D834800DF4376 /* SimpleBarChart.swift in Sources */,
 				0A8BE7DE2B1B23F6004A2B00 /* MainTabView.swift in Sources */,
+				0A0B0A032BA0F69C00948446 /* ListTransactionToCleanup.swift in Sources */,
 				0A0047A02B49618700C54DC9 /* MenuView.swift in Sources */,
 				0A5800772B00111F00C44A88 /* Currency.swift in Sources */,
 				0A8BE7E22B1B2B22004A2B00 /* ListCategoriesView.swift in Sources */,
@@ -602,7 +603,6 @@
 				0ABF3D0A2B6EF3AC00DF4376 /* Frequency.swift in Sources */,
 				0ABD97702B932DD400FA34D2 /* Planned.swift in Sources */,
 				0A157A642B794F800095B0EB /* NewTagView.swift in Sources */,
-				0ABD97792B9334A300FA34D2 /* TransactionPlannedTest.swift in Sources */,
 				0A157A5E2B76B4870095B0EB /* NewAccountView.swift in Sources */,
 				0ABF3CD82B583AE900DF4376 /* EditCategoryView.swift in Sources */,
 				0A6600072B30ED90007D7318 /* JSONData.swift in Sources */,

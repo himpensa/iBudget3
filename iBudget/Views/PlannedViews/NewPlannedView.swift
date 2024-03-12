@@ -61,7 +61,7 @@ struct NewPlannedView: View {
                         TextField("Amount", text: $amountText)
                             .keyboardType(.decimalPad)
                             .onChange(of: amountText) { newValue in
-                                if let amount = Double(newValue) {
+                                if let amount = Double(amountText) {
                                     amountValue = amount
                                 }
                             }

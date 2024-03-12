@@ -35,7 +35,7 @@ import SwiftData
   }
 
   func description() -> String {
-    return "enveloppe [Name: \(enveloppe_name), Date: \(enveloppe_end_date)]"
+    return "enveloppe [Name: \(enveloppe_name), Date: \(enveloppe_start_date)]"
   }
 
   func update(enveloppe_name: String, enveloppe_end_date: Date, enveloppe_limit: Double, categories: [Category]) {

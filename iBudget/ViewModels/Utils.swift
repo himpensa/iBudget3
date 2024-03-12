@@ -22,3 +22,10 @@ enum Recurrence: CaseIterable, Codable, Identifiable, Equatable {
     case yearly
     var id: Self { self }
 }
+
+func dateFormatted(_ date: Date) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .medium
+    dateFormatter.timeStyle = .none
+    return dateFormatter.string(from: date)
+}

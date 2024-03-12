@@ -28,6 +28,34 @@ struct SettingsView: View {
 
     var body: some View {
         VStack {
+            Button("Generate Envelopes") {
+                var enveloppes: [Enveloppe]
+                var budget_title: String = ""
+                var budget_start_date: Date=Date()
+                var budget_end_date: Date=Date()
+                var budget_limit: Double=0
+                let budget_category = Category(category_name: "Restaurant", category_icon: "questionmark.circle", parentID: nil)
+                
+                var calendar = Calendar.current
+
+                budget_end_date = calendar.date(byAdding: .month, value: 3, to: budget_start_date)!
+
+                let budget = Budget(budget_name: budget_title, budget_start_date: budget_start_date, budget_end_date: budget_end_date, budget_limit: 0, budget_number: 1, budget_interval: .day, budget_category: budget_category)
+                
+          //      modelContext.insert(budget)
+                
+          //      budget.budget_category = budget_category
+                
+                enveloppes = budget.generateEnveloppes()
+                
+                // Iterating over the transactions and inserting each one into the managed object context
+                 for enveloppe in enveloppes {
+                     //modelContext.insert(enveloppe)
+                     print(enveloppe.description())
+
+                 }
+            }
+            Spacer()
             Button("Effacer les données") {
                 do {
                     try modelContext.delete(model: Currency.self)

@@ -12,6 +12,7 @@ import SwiftData
 class QIFDataContainerImporter {
     var transactions: [Transaction] = []
 
+
     func importQIF(from fileURL: URL, selectedCurrency: Currency?, selectedAccount: Account?, defaultCategory: Category?) {
         fileURL.startAccessingSecurityScopedResource()
 
@@ -51,5 +52,9 @@ class QIFDataContainerImporter {
             print("Erreur lors de la lecture du fichier : \(error)")
         }
         fileURL.stopAccessingSecurityScopedResource()
+        
     }
 }
+
+
+
