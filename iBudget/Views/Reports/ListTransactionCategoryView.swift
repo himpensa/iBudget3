@@ -17,7 +17,9 @@ struct ListTransactionCategoryView: View {
     @State private var selectedScale: Scale = .month    
     
     @Environment(\.modelContext) var modelContext
-    @Query var transactions: [Transaction]
+    @Query(filter: #Predicate<Transaction>{ transaction in
+        transaction.transaction_category == nil
+        }) var transactions: [Transaction]
     @State private var showingSheet = false
 
     var selectedSector: String?

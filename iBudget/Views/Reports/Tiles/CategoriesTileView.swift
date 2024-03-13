@@ -60,8 +60,6 @@ struct ExpenseRow: View {
     }
 }
 
-struct CategoriesTileView_Previews: PreviewProvider {
-    static var previews: some View {
-        CategoriesTileView()
-    }
+#Preview {
+    CategoriesTileView()
 }

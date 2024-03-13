@@ -73,6 +73,11 @@ struct ContentView: View {
                 .tabItem {
                     Label("More", systemImage: "ellipsis")
                 }.tag(2)
+            
+            MenuCleanup()
+                .tabItem {
+                    Label("Cleanup", systemImage: "ellipsis")
+                }.tag(3)
         }
     }
 }
