@@ -1,4 +1,5 @@
 {
+  "originHash" : "53646822e457ec23467b1955288455857e8bc69cfbdb94534a33568a89c5cb24",
   "pins" : [
     {
       "identity" : "swiftcsv",
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
