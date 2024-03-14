@@ -18,7 +18,7 @@ struct ListTransactionCategoryView: View {
     
     @Environment(\.modelContext) var modelContext
     @Query(filter: #Predicate<Transaction>{ transaction in
-        transaction.transaction_category == nil
+        transaction.transaction_category != nil
         }) var transactions: [Transaction]
     @State private var showingSheet = false
 

@@ -18,6 +18,7 @@ struct NewCategoryView: View {
     @State private var categoryName = String()
     
     let icons = [
+        "eyeglasses",
         "circle.hexagongrid.circle",
         "pencil.circle",
         "trash.circle",

@@ -4,6 +4,7 @@ import SwiftData
 struct EditCategoryView: View {
     @Bindable var category: Category
     let icons = [
+        "eyeglasses",
         "circle.hexagongrid.circle",
         "pencil.circle",
         "trash.circle",

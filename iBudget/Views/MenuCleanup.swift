@@ -29,19 +29,6 @@ struct MenuCleanup: View {
                         .shadow(radius: 5)
                     }
                     
-                    NavigationLink(destination: ListCurrenciesView()) {
-                        VStack {
-                            Image(systemName: "dollarsign.circle")
-                                .font(.largeTitle)
-                            Text("Currencies")
-                                .font(.headline)
-                        }
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 5)
-                    }
                     
          
                     NavigationLink(destination: NewPlannedView(showingSheet: $showingSheet)) {
