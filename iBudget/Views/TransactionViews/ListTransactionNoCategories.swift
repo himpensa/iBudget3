@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ListTransactionToCleanup: View {
+struct ListTransactionNoCategories: View {
     @Environment(\.modelContext) var modelContext
     @Query(filter: #Predicate<Transaction>{ transaction in
         transaction.transaction_category == nil
@@ -48,7 +48,6 @@ struct ListTransactionToCleanup: View {
           if searchText.isEmpty {
               return transactions
           } else {
-              print(searchText)
               return transactions.filter { $0.transaction_details.contains(searchText) }
           }
       }

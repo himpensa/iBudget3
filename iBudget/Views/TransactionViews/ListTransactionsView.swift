@@ -34,7 +34,7 @@ struct ListTransactionsView: View {
                 .navigationBarItems(trailing: accountPicker)
                 .toolbar {
                     Button("Add Transaction", systemImage: "plus", action: addTransaction)
-                    Button("Delete Categories", action: deleteCategories)
+                    Button("Delete All Categories", action: deleteCategories)
                 }
             }
         }

@@ -15,7 +15,7 @@ struct MenuCleanup: View {
         NavigationView {
             ScrollView {
                 LazyVGrid(columns: gridItems, spacing: 20) {
-                    NavigationLink(destination: ListTransactionToCleanup()) {
+                    NavigationLink(destination: ListTransactionNoCategories()) {
                          VStack {
                             Image(systemName: "bookmark.circle")
                                 .font(.largeTitle)
@@ -31,11 +31,11 @@ struct MenuCleanup: View {
                     
                     
          
-                    NavigationLink(destination: NewPlannedView(showingSheet: $showingSheet)) {
+                    NavigationLink(destination: ListTransactionNoPayee()) {
                         VStack {
                             Image(systemName: "calendar")
                                 .font(.largeTitle)
-                            Text("Planned")
+                            Text("Transactions without payee")
                                 .font(.headline)
                         }
                         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)

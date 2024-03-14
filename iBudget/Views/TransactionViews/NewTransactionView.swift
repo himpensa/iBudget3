@@ -16,9 +16,11 @@ struct NewTransactionView: View {
     @Query(sort: [SortDescriptor(\Currency.currency_name)]) var currencies: [Currency]
     @Query var accounts: [Account]  // Récupérer la liste des comptes
     @Query var categories: [Category]  // Récupérer la liste des comptes
+    @Query var payees: [Payee]  // Récupérer la liste des comptes
     @State private var selectedCurrency: Currency?
     @State private var selectedAccount: Account?
     @State private var selectedCategory: Category?
+    @State private var selectedPayee: Payee?
     
     @State private var amountValue: Double = 0 // Ajout d'une variable pour gérer la saisie de montant
     @State private var amountText: String = ""
@@ -30,10 +32,12 @@ struct NewTransactionView: View {
     @State private var transaction_currency: Currency?
     @State private var transaction_account: Account?
     @State private var transaction_category: Category?
+    @State private var transaction_payee: Payee?
     
         var body: some View {
             Form {
                 Section(header: Text("Transaction Details")) {
+                    payeePicker
                     TextField("Details", text: $transaction_details)
                     DatePicker("Date", selection: $transaction_date, displayedComponents: .date)
                 }
@@ -98,6 +102,24 @@ struct NewTransactionView: View {
             })
         }
     
+    private var payeePicker: some View {
+        Picker(selection: $selectedPayee, label: Text("Payee")) {
+            if payees.isEmpty {
+                Text("Sélectionnez").tag(nil as Payee?)
+            } else {
+                ForEach(payees, id: \.self) { payee in
+                    Text(payee.payee_name).tag(payee as Payee?)
+                }
+            }
+        }
+        .onAppear {
+            if payees.isEmpty {
+                // If currencies array is empty, set the default value to nil
+                selectedPayee = nil
+            }
+        }
+    }
+    
     private var currencyPicker: some View {
         Picker(selection: $selectedCurrency, label: Text("Currency")) {
             if currencies.isEmpty {
@@ -120,12 +142,12 @@ struct NewTransactionView: View {
     }
     
     func addTransaction() {
-        let transaction = Transaction(transaction_id: transaction_id, transaction_details: transaction_details, transaction_date: transaction_date, transaction_amount: transaction_amount, transaction_currency: nil, transaction_account: nil, transaction_category: nil, transaction_completed: true)
+        let transaction = Transaction(transaction_id: transaction_id, transaction_details: transaction_details, transaction_date: transaction_date, transaction_amount: transaction_amount, transaction_currency: nil, transaction_account: nil, transaction_category: nil, transaction_completed: true, transaction_payee: nil)
         modelContext.insert(transaction)
         transaction.transaction_currency=selectedCurrency
         transaction.transaction_account=selectedAccount
         transaction.transaction_category=selectedCategory
+        transaction.transaction_payee=selectedPayee
     }
-    
 }
 

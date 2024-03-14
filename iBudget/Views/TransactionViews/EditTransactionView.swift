@@ -14,9 +14,11 @@ struct EditTransactionView: View {
     @Query(sort: [SortDescriptor(\Currency.currency_name)]) var currencies: [Currency]
     @Query var accounts: [Account]  // Récupérer la liste des comptes
     @Query var categories: [Category]  // Récupérer la liste des comptes
+    @Query var payees: [Payee]  // Récupérer la liste des comptes
     @State private var selectedCurrency: Currency?
     @State private var selectedAccount: Account?
     @State private var selectedCategory: Category?
+    @State private var selectedPayee: Payee?
     @State private var amountValue: Double = 0 // Ajout d'une variable pour gérer la saisie de montant
 
     @State private var amountText: String = ""
@@ -26,6 +28,7 @@ struct EditTransactionView: View {
         self._selectedCurrency = State(initialValue: transaction.transaction_currency)
         self._selectedAccount = State(initialValue: transaction.transaction_account)  // Initialiser avec le compte actuel
         self._selectedCategory = State(initialValue: transaction.transaction_category)
+        self._selectedPayee = State(initialValue: transaction.transaction_payee)
         self._amountText = State(initialValue: String(format: "%.2f", transaction.transaction_amount))
         
     }
@@ -33,6 +36,14 @@ struct EditTransactionView: View {
     var body: some View {
         Form {
             Section(header: Text("Transaction Details")) {
+                Picker("Payee", selection: $selectedPayee) {
+                    ForEach(payees, id: \.self) { payee in
+                        Text(payee.payee_name).tag(payee as Payee?)
+                    }
+                }
+                .onChange(of: selectedPayee) { newValue, _ in
+                    transaction.transaction_payee = selectedPayee
+                }
                 TextField("Details", text: $transaction.transaction_details)
                 DatePicker("Date", selection: $transaction.transaction_date, displayedComponents: .date)
             }
