@@ -32,14 +32,14 @@ import SwiftData
         let values = try decoder.container(keyedBy: CodingKeys.self)
         payee_id = try values.decode(UUID.self, forKey: .payee_id)
         payee_name = try values.decode(String.self, forKey: .payee_name)
-        payee_default_category = try values.decode(Category.self, forKey: .payee_default_category)
+        payee_default_category = try values.decodeIfPresent(Category.self, forKey: .payee_default_category)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(payee_id, forKey: .payee_id)
         try container.encode(payee_name, forKey: .payee_name)
-        try container.encode(payee_default_category, forKey: .payee_default_category)
+        try container.encodeIfPresent(payee_default_category, forKey: .payee_default_category)
     }
 
     enum CodingKeys: String, CodingKey {

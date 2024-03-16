@@ -17,18 +17,20 @@ import SwiftData
     var transaction_payee: Payee?
     var transaction_currency: Currency?
     var transaction_account: Account?
+    var transaction_account_destination: Account?
     var transaction_category: Category?
     var transaction_completed: Bool = false
     var plannedTransactionID: UUID? // Identifiant de la transaction planifiée correspondante, optionnel pour les transactions passées
 
 
-    init(transaction_id: UUID = UUID(), transaction_details: String = "", transaction_date: Date = .now, transaction_amount: Double=0, transaction_currency: Currency? = nil, transaction_account: Account? = nil, transaction_category: Category? = nil, transaction_completed: Bool, transaction_payee: Payee? = nil, plannedTransactionID: UUID? = nil) {
+    init(transaction_id: UUID = UUID(), transaction_details: String = "", transaction_date: Date = .now, transaction_amount: Double=0, transaction_currency: Currency? = nil, transaction_account: Account? = nil, transaction_account_destination: Account? = nil, transaction_category: Category? = nil, transaction_completed: Bool, transaction_payee: Payee? = nil, plannedTransactionID: UUID? = nil) {
         self.transaction_id = transaction_id
         self.transaction_details = transaction_details
         self.transaction_date = transaction_date
         self.transaction_amount = transaction_amount
         self.transaction_currency = transaction_currency
         self.transaction_account = transaction_account
+        self.transaction_account_destination = transaction_account_destination
         self.transaction_category = transaction_category
         self.transaction_completed = transaction_completed
         self.transaction_payee = transaction_payee
@@ -38,12 +40,13 @@ import SwiftData
         return "Transaction [Details: \(transaction_details), Amount: \(transaction_amount), Currency: \(String(describing: transaction_currency)), Account: \(String(describing: transaction_account)), Category: \(String(describing: transaction_category))]"
     }
 
-    func update(transaction_details: String, transaction_date: Date, transaction_amount: Double, transaction_currency: Currency, transaction_account: Account, transaction_category: Category, transaction_completed: Bool, transaction_payee: Payee) {
+    func update(transaction_details: String, transaction_date: Date, transaction_amount: Double, transaction_currency: Currency, transaction_account: Account, transaction_account_destination: Account, transaction_category: Category, transaction_completed: Bool, transaction_payee: Payee) {
         self.transaction_details = transaction_details
         self.transaction_date = transaction_date
         self.transaction_amount = transaction_amount
         self.transaction_currency = transaction_currency
         self.transaction_account = transaction_account
+        self.transaction_account_destination = transaction_account_destination
         self.transaction_category = transaction_category
         self.transaction_completed = transaction_completed
         self.transaction_payee = transaction_payee
@@ -57,6 +60,7 @@ import SwiftData
         try container.encode(transaction_amount, forKey: .transaction_amount)
         try container.encode(transaction_currency, forKey: .transaction_currency)
         try container.encode(transaction_account, forKey: .transaction_account)
+        try container.encode(transaction_account_destination, forKey: .transaction_account_destination)
         try container.encode(transaction_category, forKey: .transaction_category)
         try container.encode(transaction_completed, forKey: .transaction_completed)
         try container.encode(transaction_payee, forKey: .transaction_payee)
@@ -80,6 +84,11 @@ import SwiftData
         } else {
             transaction_account = nil
         }
+        if let account_destination = try? container.decode(Account.self, forKey: .transaction_account_destination) {
+            transaction_account_destination = account_destination
+        } else {
+            transaction_account_destination = nil
+        }
         if let category = try? container.decode(Category.self, forKey: .transaction_category) {
             transaction_category = category
         } else {
@@ -100,6 +109,7 @@ import SwiftData
         case transaction_amount
         case transaction_currency
         case transaction_account
+        case transaction_account_destination
         case transaction_category
         case transaction_completed
         case transaction_payee

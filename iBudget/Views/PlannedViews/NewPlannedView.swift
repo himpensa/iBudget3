@@ -30,6 +30,7 @@ struct NewPlannedView: View {
     @State private var selectedCurrency: Currency = Currency()
     @State private var selectedAccount: Account = Account()
     @State private var selectedCategory: Category = Category()
+    @State private var selectedPayee: Payee = Payee()
     
     @State private var amountValue: Double = 0
     @State private var amountText: String = ""
@@ -128,7 +129,7 @@ struct NewPlannedView: View {
         print(selectedAccount.account_name)
         print(selectedCategory.category_name)
         print(selectedCurrency.currency_name)
-        let planned = Planned(planned_next_date: planned_next_date, planned_end_date: planned_end_date, planned_recurrence: planned_recurrence, planned_amount: amountValue, planned_description: planned_details, planned_currency: selectedCurrency, planned_account: selectedAccount, planned_category: selectedCategory)
+        let planned = Planned(planned_next_date: planned_next_date, planned_end_date: planned_end_date, planned_recurrence: planned_recurrence, planned_amount: amountValue, planned_description: planned_details, planned_currency: selectedCurrency, planned_account: selectedAccount, planned_category: selectedCategory, planned_payee: selectedPayee)
         
         modelContext.insert(planned)
         

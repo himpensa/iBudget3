@@ -4,17 +4,14 @@
 //
 //  Created by Antoine Himpens on 14/03/2024.
 //
-
 import SwiftUI
 import SwiftData
-
 struct ListTransactionNoPayee: View {
         @Environment(\.modelContext) var modelContext
         @Query(filter: #Predicate<Transaction>{ transaction in
             transaction.transaction_payee == nil
             }) var transactions: [Transaction]
         @State private var searchText = ""
-
         var body: some View {
               NavigationStack {
                   List {
@@ -28,13 +25,10 @@ struct ListTransactionNoPayee: View {
                                   Spacer()
                                   Text(String(format: "%.2f", transaction.transaction_amount))
                                       .font(.headline)
-
                                   }
                               }
                           }
                       }
-                      
-                      
                   }
               }
               .searchable(text: $searchText) {
@@ -43,12 +37,11 @@ struct ListTransactionNoPayee: View {
                   }
               }
           }
-
     var searchResults: [Transaction] {
         if searchText.isEmpty {
             return transactions
         } else {
-            return transactions.filter { $0.transaction_details.contains(searchText) }
+            return transactions.filter { $0.transaction_details.localizedCaseInsensitiveContains(searchText) }
         }
     }
       }

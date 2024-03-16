@@ -19,10 +19,11 @@ import SwiftData
     var planned_account: Account?
     var planned_currency: Currency?
     var planned_category: Category?
+    var planned_payee: Payee?
     var planned_end_date: Date
     var planned_transactions: [Transaction] // Tableau des transactions correspondantes
     
-    init(planned_next_date: Date, planned_end_date: Date, planned_recurrence: Recurrence, planned_amount: Double, planned_description: String, planned_currency: Currency?, planned_account: Account?, planned_category: Category?, planned_transactions: [Transaction] = []) {
+    init(planned_next_date: Date, planned_end_date: Date, planned_recurrence: Recurrence, planned_amount: Double, planned_description: String, planned_currency: Currency?, planned_account: Account?, planned_category: Category?, planned_payee: Payee?, planned_transactions: [Transaction] = []) {
         self.planned_next_date = planned_next_date
         self.planned_amount = planned_amount
         self.planned_description = planned_description
@@ -32,6 +33,7 @@ import SwiftData
         self.planned_account = planned_account
         self.planned_category = planned_category
         self.planned_currency = planned_currency
+        self.planned_payee = planned_payee
     }
     
     func description() -> String {
@@ -53,7 +55,7 @@ import SwiftData
             print(planned_currency!.currency_name)
             print(planned_account!.account_name)
             print(planned_category!.category_name)
-            let transaction = Transaction(transaction_details: planned_description, transaction_date: currentDate, transaction_amount: planned_amount, transaction_currency: planned_currency, transaction_account: planned_account, transaction_category: planned_category, transaction_completed: false, plannedTransactionID: planned_id)
+            let transaction = Transaction(transaction_details: planned_description, transaction_date: currentDate, transaction_amount: planned_amount, transaction_currency: planned_currency, transaction_account: planned_account, transaction_category: planned_category, transaction_completed: false, transaction_payee: planned_payee, plannedTransactionID: planned_id)
             print(transaction.description())
             transactions.append(transaction)
             
@@ -86,6 +88,7 @@ import SwiftData
         planned_account=try values.decode(Account.self, forKey: .planned_account)
         planned_category=try values.decode(Category.self, forKey: .planned_category)
         planned_currency=try values.decode(Currency.self, forKey: .planned_currency)
+        planned_payee=try values.decode(Payee.self, forKey: .planned_payee)
         planned_transactions=[]
     }
 
@@ -97,6 +100,7 @@ import SwiftData
         try container.encode(planned_recurrence, forKey: .planned_recurrence)
         try container.encode(planned_next_date, forKey: .planned_next_date)
         try container.encode(planned_end_date, forKey: .planned_end_date)
+        try container.encode(planned_payee, forKey: .planned_payee)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -110,7 +114,7 @@ import SwiftData
         case planned_account
         case planned_category
         case planned_currency
-        
+        case planned_payee
     }
 
 

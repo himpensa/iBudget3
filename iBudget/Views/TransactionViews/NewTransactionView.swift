@@ -34,52 +34,39 @@ struct NewTransactionView: View {
     @State private var transaction_category: Category?
     @State private var transaction_payee: Payee?
     
-        var body: some View {
+    @State private var selectedTab = 0
+
+    @State private var selectedOption = "Expense"
+    let options = ["Expense", "Income", "Transfert"]
+    
+    
+    var body: some View {
+        VStack {
             Form {
-                Section(header: Text("Transaction Details")) {
-                    payeePicker
-                    TextField("Details", text: $transaction_details)
-                    DatePicker("Date", selection: $transaction_date, displayedComponents: .date)
-                }
-                
-                Section(header: Text("Amount and Currency")) {
-                    TextField("Amount", text: $amountText)
-                        .keyboardType(.decimalPad)
-                        .onChange(of: amountText) { newValue, _ in
-                            print("New Value:", newValue)
-                            if let amount = Double(amountText) {
-                                transaction_amount = amount
-                                print("Amount:", amount)
-                            } else {
-                                print("Unable to convert to Double")
-                            }
-                        }
-
-
-                    currencyPicker
-                }
-
-                Section(header: Text("Account")) {
-                    Picker("Account", selection: $selectedAccount) {
-                        ForEach(accounts, id: \.self) { account in
-                            Text(account.account_name).tag(account as Account?)
-                        }
+                Picker(selection: $selectedOption, label: Text("Choose an option")) {
+                    ForEach(options, id: \.self) { option in
+                        Text(option)
                     }
                 }
-                .onChange(of: selectedAccount) { newAccount, _ in
-                    transaction_account = selectedAccount
-                }
-                
-                Section(header: Text("Category")) {
-                    Picker("Category", selection: $selectedCategory) {
-                        ForEach(categories, id: \.self) { category in
-                            Text(category.category_name).tag(category as Category?)
-                        }
-                    }
-                }
-                .onChange(of: selectedCategory) { newCategory, _ in
-                    print(selectedCategory)
-                    transaction_category = selectedCategory
+                .pickerStyle(.segmented)
+                    
+                switch selectedOption {
+                case "Expense":
+                    accountPicker
+                    transactionDetailsSection()
+                    amountAndCurrencySection()
+                    categoryPicker
+                case "Income":
+                    accountPicker
+                    transactionDetailsSection()
+                    amountAndCurrencySection()
+                    categoryPicker
+                case "Transfert":
+                    accountTransfertPicker
+                    amountAndCurrencySection()
+                    categoryPicker
+                default:
+                    Text("Option selected: \(selectedOption)")
                 }
             }
             .navigationTitle("New Transaction")
@@ -88,11 +75,6 @@ struct NewTransactionView: View {
                 showingConfirmationAlert = true
             }) {
                 Text("Cancel").foregroundColor(.red)
-                    .alert(isPresented: $showingConfirmationAlert) {
-                        Alert(title: Text("Are you sure?"), message: Text("Your changes will not be saved."), primaryButton: .default(Text("Yes")) {
-                            dismiss()
-                        }, secondaryButton: .cancel(Text("No")))
-                    }
             }, trailing: Button(action: {
                 print("Saved")
                 addTransaction()
@@ -100,8 +82,83 @@ struct NewTransactionView: View {
             }) {
                 Text("Save").bold()
             })
+            .alert(isPresented: $showingConfirmationAlert) {
+                Alert(title: Text("Are you sure?"), message: Text("Your changes will not be saved."), primaryButton: .default(Text("Yes")) {
+                    dismiss()
+                }, secondaryButton: .cancel(Text("No")))
+            }
         }
+    }
+
+    private func amountAndCurrencySection() -> some View {
+        Section(header: Text("Amount and Currency")) {
+            TextField("Amount", text: $amountText)
+                .keyboardType(.decimalPad)
+                .onChange(of: amountText) { newValue, _ in
+                    if let amount = Double(amountText) {
+                        transaction_amount = amount
+                        print("Amount:", amount)
+                    } else {
+                        print("Unable to convert to Double")
+                    }      
+                }
+            currencyPicker
+        }
+    }
+
+    private func transactionDetailsSection() -> some View {
+        Section(header: Text("Transaction Details")) {
+            payeePicker
+            TextField("Details", text: $transaction_details)
+            DatePicker("Date", selection: $transaction_date, displayedComponents: .date)
+        }
+    }
+
+    private var accountTransfertPicker: some View {
+        Section(header: Text("Account")) {
+            Picker("From", selection: $selectedAccount) {
+                ForEach(accounts, id: \.self) { account in
+                    Text(account.account_name).tag(account as Account?)
+                }
+            }
+            Picker("To", selection: $selectedAccount) {
+                ForEach(accounts, id: \.self) { account in
+                    Text(account.account_name).tag(account as Account?)
+                }
+            }
+        }
+        .onChange(of: selectedAccount) { newAccount, _ in
+            transaction_account = selectedAccount
+        }
+    }
     
+    private var accountPicker: some View {
+        Section(header: Text("Account")) {
+            Picker("Account", selection: $selectedAccount) {
+                ForEach(accounts, id: \.self) { account in
+                    Text(account.account_name).tag(account as Account?)
+                }
+            }
+        }
+        .onChange(of: selectedAccount) { newAccount, _ in
+            transaction_account = selectedAccount
+        }
+    }
+    
+    private var categoryPicker: some View {
+        Section(header: Text("Category")) {
+            Picker("Category", selection: $selectedCategory) {
+                ForEach(categories, id: \.self) { category in
+                    Text(category.category_name).tag(category as Category?)
+                }
+            }
+        }
+        .onChange(of: selectedCategory) { newCategory, _ in
+            print(selectedCategory)
+            transaction_category = selectedCategory
+        }
+    }
+
     private var payeePicker: some View {
         Picker(selection: $selectedPayee, label: Text("Payee")) {
             if payees.isEmpty {
